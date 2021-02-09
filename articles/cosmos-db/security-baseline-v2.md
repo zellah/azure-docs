@@ -15,9 +15,11 @@ ms.custom: subject-security-benchmark
 
 The Azure Security Baseline for Cosmos DB contains recommendations that will help you improve the security posture of your deployment.
 
-The baseline for this service is drawn from the [Azure Security Benchmark version 1.0](../security/benchmarks/overview.md), which provides recommendations on how you can secure your cloud solutions on Azure with our best practices guidance.
+The baseline for this service is drawn from the [Azure Security Benchmark version 2.0](https://docs.microsoft.com/en-us/azure/security/benchmarks/overview), which provides recommendations on how you can secure your cloud solutions on Azure with our best practices guidance.
 
-For more information, see [Azure Security Baselines overview](../security/benchmarks/security-baselines-overview.md).
+For more information, see [Azure Security Baselines overview](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-baselines-overview).
+
+The [Azure Security Baseline for Cosmos DB benchmark version 1.0](https://docs.microsoft.com/en-us/azure/cosmos-db/security-baseline) is also available.
 
 ## Network Security
 
@@ -374,3 +376,65 @@ Use built-in roles to allocate permission and only create custom role when requi
 - [Understand Customer Lockbox](https://docs.microsoft.com/en-us/azure/security/fundamentals/customer-lockbox-overview)
 
 **Responsibility**: Customer
+
+## Data protection
+
+### DP-1: Discovery, classify and label sensitive data
+
+**Guidance**: Use tags to assist in tracking Azure Cosmos DB instances that store or process sensitive information.
+
+- [How to create and use tags](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-using-tags)
+
+**Responsibility**: Customer
+
+### DP-2: Protect sensitive data
+
+**Guidance**: Protect sensitive data by restricting access using Azure role-based access control (Azure RBAC), network-based access controls, and specific controls in Azure services (such as encryption in SQL and other databases).
+
+To ensure consistent access control, all types of access control should be aligned to your enterprise segmentation strategy. The enterprise segmentation strategy should also be informed by the location of sensitive or business critical data and systems.
+
+For the underlying platform, which is managed by Microsoft, Microsoft treats all customer content as sensitive and guards against customer data loss and exposure. To ensure customer data within Azure remains secure, Microsoft has implemented some default data protection controls and capabilities.
+
+- [Azure role-based access control in Azure Cosmos DB](https://docs.microsoft.com/en-us/azure/cosmos-db/role-based-access-control)
+
+- [Azure Cosmos DB datasebase security overview](https://docs.microsoft.com/en-us/azure/cosmos-db/database-security)
+
+**Responsibility**: Shared
+
+### DP-3: Monitor for unauthorized transfer of sensitive data
+
+**Guidance**: Monitor for unauthorized transfer of data to locations outside of enterprise visibility and control. This typically involves monitoring for anomalous activities (large or unusual transfers) that could indicate unauthorized data exfiltration.
+
+Advanced Threat Protection (ATP) for Azure Cosmos DB can alert on anomalous transfer of information that might indicate unauthorized transfers of sensitive information.
+
+- [Enable Azure Cosmos DB ATP](https://docs.microsoft.com/en-us/azure/cosmos-db/cosmos-db-advanced-threat-protection?tabs=azure-portal)
+
+**Responsibility**: Shared
+
+### DP-4: Encrypt sensitive information in transit
+
+**Guidance**: To complement access controls, data in transit should be protected against ‘out of band’ attacks (e.g. traffic capture) using encryption to ensure that attackers cannot easily read or modify the data.
+
+All connections to Azure Cosmos DB support HTTPS. Any accounts created after July 29th, 2020 have a minimum TLS version of TLS 1.2 by default. You can request that the minimum TLS version of your accounts created before July 29th, 2020 be upgraded to TLS 1.2 by contacting [azurecosmosdbtls@service.microsoft.com](mailto:azurecosmosdbtls@service.microsoft.com).
+
+- [TLS 1.2 enforcement on Azure Cosmos DB](https://devblogs.microsoft.com/cosmosdb/tls-1-2-enforcement/)
+
+- [TLS 1.3 reference](https://devblogs.microsoft.com/premier-developer/microsoft-tls-1-3-support-reference/)
+
+**Responsibility**: Shared
+
+### DP-5: Encrypt sensitive data at rest
+
+**Guidance**: To complement access controls, data at rest should be protected against ‘out of band’ attacks (such as accessing underlying storage) using encryption. This helps ensure that attackers cannot easily read or modify the data.
+
+All user data stored in Cosmos DB is encrypted at rest by default. There are no controls to turn it off. Azure Cosmos DB uses AES-256 encryption on all regions where the account is running.
+
+By default, Microsoft manages the keys that are used to encrypt the data in your Azure Cosmos account. You can optionally choose to add a second layer of encryption with your own keys.
+
+- [Understanding encryption at rest with Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/database-encryption-at-rest)
+
+- [Understanding key management for encryption at rest with Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/cosmos-db-security-controls)
+
+- [How to configure customer-managed keys for your Azure Cosmos DB account](https://docs.microsoft.com/azure/cosmos-db/how-to-setup-cmk)
+
+**Responsibility**: Shared
