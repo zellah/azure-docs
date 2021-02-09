@@ -21,9 +21,10 @@ For more information, see [Azure Security Baselines overview](https://docs.micro
 
 The [Azure Security Baseline for Cosmos DB benchmark version 1.0](https://docs.microsoft.com/en-us/azure/cosmos-db/security-baseline) is also available.
 
+
 ## Network Security
 
-*For more information, see [Security Control: Network Security](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-network-security).*
+*For more information, see [Security Control V2: Network Security](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-network-security).*
 
 ### NS-1: Implement security for internal traffic
 
@@ -137,7 +138,7 @@ When Azure DNS is used as your authoritative DNS service, ensure DNS zones and r
 
 ## Identity Management
 
-*For more information, see [Security Control: Logging and Monitoring](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-identity-management).*
+*For more information, see [Security Control V2: Identity Management](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-identity-management).*
 
 ### IM-1: Standardize Azure Active Directory as the central identity and authentication system
 
@@ -276,6 +277,11 @@ Alternatively, Microsoft Cloud App Security is a cloud access security broker (C
 
 **Responsibility**: Customer
 
+
+## Privileged Access
+
+*For more information, see [Security Control V2: Privileged Access](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-privileged-access).*
+
 ### PA-1: Protect and limit highly privileged users
 
 **Guidance**: Limit the number of highly privileged user accounts, and protect these accounts at an elevated level.
@@ -377,7 +383,10 @@ Use built-in roles to allocate permission and only create custom role when requi
 
 **Responsibility**: Customer
 
+
 ## Data protection
+
+*For more information, see [Security Control V2: Asset Management](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-asset-management).*
 
 ### DP-1: Discovery, classify and label sensitive data
 
@@ -438,3 +447,139 @@ By default, Microsoft manages the keys that are used to encrypt the data in your
 - [How to configure customer-managed keys for your Azure Cosmos DB account](https://docs.microsoft.com/azure/cosmos-db/how-to-setup-cmk)
 
 **Responsibility**: Shared
+
+
+## Asset Management
+
+*For more information, see [Security Control V2: Asset Management](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-asset-management).*
+
+### AM-1: Ensure security team has visibility into risks for assets
+
+**Guidance**: Ensure security teams are granted Security Reader permissions in your Azure tenant and subscriptions so they can monitor for security risks using Azure Security Center.
+
+Depending on how security team responsibilities are structured, monitoring for security risks could  be the responsibility of a central security team or a local team. That said, security insights and risks must always be aggregated centrally within an organization.
+
+Security Reader permissions can be applied broadly to an entire tenant (Root Management Group) or scoped to management groups or specific subscriptions.
+
+Note: Additional permissions might be required to get visibility into workloads and services.
+
+- [Overview of Security Reader Role](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#security-reader)
+
+- [Overview of Azure Management Groups](https://docs.microsoft.com/en-us/azure/governance/management-groups/overview)
+
+- [RBAC in Azure Cosmos DB](https://docs.microsoft.com/en-us/azure/cosmos-db/role-based-access-control)
+
+**Responsibility**: Customer
+
+### AM-2: Ensure security team has access to asset inventory and metadata
+
+**Guidance**: Ensure that security teams have access to a continuously updated inventory of assets on Azure. Security teams often need this inventory to evaluate their organization's potential exposure to emerging risks, and as an input to continuously security improvements.
+
+The Azure Security Center inventory feature and Azure Resource Graph can query for and discover all resources  in your subscriptions, including Azure services, applications, and network resources.  
+
+Logically organize assets according to your organization’s taxonomy using Tags as well as other metadata in Azure (Name, Description, and Category).  
+
+- [How to create queries with Azure Resource Graph Explorer](https://docs.microsoft.com/en-us/azure/governance/resource-graph/first-query-portal)
+
+- [Azure Security Center asset inventory management](https://docs.microsoft.com/en-us/azure/security-center/asset-inventory)
+
+- [For more information about tagging assets, see the resource naming and tagging decision guide](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/decision-guides/resource-tagging/?toc=%2fazure%2fazure-resource-manager%2fmanagement%2ftoc.json)
+
+**Responsibility**: Customer
+
+### AM-3: Use only approved Azure services
+
+**Guidance**: Not applicable; this guideline applies to Azure as a whole.
+
+**Responsibility**: Not applicable
+
+### AM-4: Ensure security of asset lifecycle management
+
+**Guidance**: Establish or update security policies that address asset lifecycle management processes for potentially high impact modifications. These modifications include changes to: identity providers and access, data sensitivity, network configuration, and administrative privilege assignment.
+
+Remove Azure resources when they are no longer needed.
+
+- [Delete Azure resource group and resource](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/delete-resource-group)
+
+**Responsibility**: Customer
+
+### AM-5: Limit users' ability to interact with Azure Resource Manager
+
+**Guidance**: Not applicable; this guideline applies to Azure as a whole.
+
+**Responsibility**: Not applicable.
+
+### AM-6: Use only approved applications in compute resources
+
+**Guidance**: Not applicable; this guideline applies to compute resources.
+
+**Responsibility**: Not applicable
+
+
+## Logging and Threat Detection
+
+*For more information, see [Security Control V2: Logging and Threat Detection](https://docs.microsoft.com/en-us/azure/security/benchmarks/security-controls-v2-logging-threat-detection).*
+
+### LT-1: Enable threat detection for Azure resources
+
+**Guidance**: Ensure you are monitoring different types of Azure assets for potential threats and anomalies. Focus on getting high quality alerts to reduce false positives for analysts to sort through. Alerts can be sourced from log data, agents, or other data.
+
+Use the Azure Security Center built-in threat detection capability, which is based on monitoring Azure service telemetry and analyzing service logs. Data is collected using the Log Analytics agent, which reads various security-related configurations and event logs from the system and copies the data to your workspace for analysis.
+
+In addition, use Azure Sentinel to build analytics rules, which hunt threats that match  specific criteria across your environment. The rules generate incidents when the criteria are matched, so that you can investigate each incident. Azure Sentinel can also import third party threat intelligence to enhance its threat detection capability.
+
+- [Threat protection in Azure Security Center](https://docs.microsoft.com/en-us/azure/security-center/azure-defender)
+
+- [Azure Security Center security alerts reference guide](https://docs.microsoft.com/en-us/azure/security-center/alerts-reference)
+
+- [Create custom analytics rules to detect threats](https://docs.microsoft.com/en-us/azure/sentinel/tutorial-detect-threats-custom)
+
+- [Cyber threat intelligence with Azure Sentinel](https://docs.microsoft.com/en-us/azure/architecture/example-scenario/data/sentinel-threat-intelligence)
+
+- [Azure Security Center alerts about Azure Cosmos DB](https://docs.microsoft.com/en-us/azure/security-center/alerts-reference#alerts-azurecosmos)
+
+**Responsibility**: Customer
+
+### LT-2: Enable threat detection for Azure identity and access management
+
+**Guidance**: Not applicable; this guideline applies to Azure as a whole.
+
+**Responsibility**: Not applicable.
+
+### LT-3: Enable logging for Azure network activities
+
+**Guidance**: Not applicable; this guideline applies to Azure as a whole.
+
+**Responsibility**: Not applicable.
+
+### LT-4: Enable logging for Azure resources
+
+**Guidance**: Enable diagnostic settings for Azure Cosmos DB and send the logs to a Log Analytics workspace or storage account. Diagnostic settings in Azure Cosmos DB are used to collect resource logs. These logs are captured per request and they are also referred to as "data plane logs". Some examples of the data plane operations include delete, insert, and read. You may also enable Azure Activity Log Diagnostic Settings and send them to the same Log Analytics Workspace.
+
+- [How to enable Diagnostic Settings for Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/logging)
+
+- [How to enable Diagnostic Settings for Azure Activity Log](https://docs.microsoft.com/azure/azure-monitor/platform/diagnostic-settings-legacy)
+
+**Responsibility**: Shared
+
+### LT-5: Centralize security log management and analysis
+
+**Guidance**: Not applicable; this guideline applies to Azure as a whole.
+
+**Responsibility**: Not applicable
+
+### LT-6: Configure log storage retention
+
+**Guidance**: Configure log retention for the logs associated with your Azure Cosmos DB instances according to your compliance, regulation, and business requirements.
+
+- [Set log retention parameters for Azure Monitor](https://docs.microsoft.com/azure/azure-monitor/platform/manage-cost-storage#change-the-data-retention-period)
+
+- [Change the data retention period in Log Analytics](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/manage-cost-storage#change-the-data-retention-period)
+
+**Responsibility**: Customer
+
+### LT-7: Use approved time synchronization sources
+
+**Guidance**: Not applicable; this guideline applies to compute resources.
+
+**Responsibility**: Not applicable
