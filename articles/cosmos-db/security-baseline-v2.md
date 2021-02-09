@@ -273,3 +273,104 @@ Alternatively, Microsoft Cloud App Security is a cloud access security broker (C
 - [Microsoft Cloud App Security best practices](https://docs.microsoft.com/en-us/cloud-app-security/best-practices)
 
 **Responsibility**: Customer
+
+### PA-1: Protect and limit highly privileged users
+
+**Guidance**: Limit the number of highly privileged user accounts, and protect these accounts at an elevated level.
+The most critical built-in roles in Azure AD are Global Administrator and the Privileged Role Administrator, because users assigned to these two roles can delegate administrator roles. With these privileges, users can directly or indirectly read and modify every resource in your Azure environment:
+
+- Global Administrator: Users with this role have access to all administrative features in Azure AD, as well as services that use Azure AD identities.
+
+- Privileged Role Administrator: Users with this role can manage role assignments in Azure AD, as well as within Azure AD Privileged Identity Management (PIM). In addition, this role allows management of all aspects of PIM and administrative units.
+
+Note: You may have other critical roles that need to be governed if you use custom roles with certain privileged permissions assigned. And you may also want to apply similar controls to the administrator account of critical business assets.  
+
+You can enable just-in-time (JIT) privileged access to Azure resources and Azure AD using Azure AD Privileged Identity Management (PIM). JIT grants temporary permissions to perform privileged tasks only when users need it. PIM can also generate security alerts when there is suspicious or unsafe activity in your Azure AD organization.
+
+- [Administrator role permissions in Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference)
+
+- [Use Azure Privileged Identity Management security alerts](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-how-to-configure-security-alerts)
+
+- [Securing privileged access for hybrid and cloud deployments in Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/roles/security-planning)
+
+**Responsibility**: Customer
+
+### PA-2: Restrict administrative access to business-critical systems
+
+**Guidance**: Isolate access to business-critical systems by restricting which accounts are granted privileged access to the subscriptions and management groups they are in.
+Ensure that you also restrict access to the management, identity, and security systems that have administrative access to your business critical assets, such as Active Directory Domain Controllers (DCs), security tools, and system management tools with agents installed on business critical systems. Attackers who compromise these management and security systems can immediately weaponize them to compromise business critical assets.
+
+All types of access controls should be aligned to your enterprise segmentation strategy to ensure consistent access control.
+
+Ensure to assign separate privileged accounts that are distinct from the standard user accounts used for email, browsing, and productivity tasks.
+
+- [Azure Components and Reference model](https://docs.microsoft.com/en-us/security/compass/microsoft-security-compass-introduction#azure-components-and-reference-model-2151)
+
+- [Management Group Access](https://docs.microsoft.com/en-us/azure/governance/management-groups/overview#management-group-access)
+
+- [Azure subscription administrators](https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/add-change-subscription-administrator)
+
+**Responsibility**: Customer
+
+### PA-3: Review and reconcile user access regularly
+
+**Guidance**: Review user accounts and access assignment regularly to ensure the accounts and their level of access are valid. You can use Azure AD access reviews to review group memberships, access to enterprise applications, and role assignments. Azure AD reporting can provide logs to help discover stale accounts. You can also use Azure AD Privileged Identity Management to create an access review report workflow that facilitates the review process.
+In addition, Azure Privileged Identity Management can be configured to alert when an excessive number of administrator accounts are created, and to identify administrator accounts that are stale or improperly configured.
+
+Note: Some Azure services support local users and roles that aren't managed through Azure AD. You must manage these users separately.
+
+- [Create an access review of Azure resource roles in Privileged Identity Management(PIM)](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-resource-roles-start-access-review)
+
+- [How to use Azure AD identity and access reviews](https://docs.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview)
+
+**Responsibility**: Customer
+
+### PA-4: Set up emergency access in Azure AD
+
+**Guidance**: To prevent being accidentally locked out of your Azure AD organization, set up an emergency access account for access when normal administrative accounts cannot be used. Emergency access accounts are usually highly privileged, and they should not be assigned to specific individuals. Emergency access accounts are limited to emergency or "break glass"' scenarios where normal administrative accounts can't be used.
+You should ensure that the credentials (such as password, certificate, or smart card) for emergency access accounts are kept secure and known only to individuals who are authorized to use them only in an emergency.
+
+- [Manage emergency access accounts in Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/roles/security-emergency-access)
+
+**Responsibility**: Customer
+
+### PA-5: Automate entitlement management
+
+**Guidance**: Use Azure AD entitlement management features to automate access request workflows, including access assignments, reviews, and expiration. Dual or multi-stage approval is also supported.
+
+- [What are Azure AD access reviews](https://docs.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview)
+
+- [What is Azure AD entitlement management](https://docs.microsoft.com/en-us/azure/active-directory/governance/entitlement-management-overview)
+
+**Responsibility**: Customer
+
+### PA-6: Use privileged access workstations
+
+**Guidance**: Secured, isolated workstations are critically important for the security of sensitive roles like administrators, developers, and critical service operators. Use highly secured user workstations and/or Azure Bastion for administrative tasks. Use Azure Active Directory, Microsoft Defender Advanced Threat Protection (ATP), and/or Microsoft Intune to deploy a secure and managed user workstation for administrative tasks. The secured workstations can be centrally managed to enforce secured configuration, including strong authentication, software and hardware baselines, and restricted logical and network access.
+
+- [Understand privileged access workstations](https://4sysops.com/archives/understand-the-microsoft-privileged-access-workstation-paw-security-model/)
+
+- [Deploy a privileged access workstation](https://docs.microsoft.com/en-us/security/compass/privileged-access-deployment)
+
+**Responsibility**: Customer
+
+### PA-7: Follow just enough administration (least privilege principle)
+
+**Guidance**: Azure role-based access control (Azure RBAC) allows you to manage Azure resource access through role assignments. You can assign these roles to users, group service principals, and managed identities. There are pre-defined built-in roles for certain resources, and these roles can be inventoried or queried through tools such as Azure CLI, Azure PowerShell, and the Azure portal. The privileges you assign to resources through Azure RBAC should always be limited to what's required by the roles. Limited privileges complement the just in time (JIT) approach of Azure AD Privileged Identity Management (PIM), and those privileges should be reviewed periodically.
+Use built-in roles to allocate permission and only create custom role when required.
+
+- [What is Azure role-based access control (Azure RBAC)](https://docs.microsoft.com/en-us/azure/role-based-access-control/overview)
+
+- [How to configure Azure RBAC](https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal)
+
+- [How to use Azure AD identity and access reviews](https://docs.microsoft.com/en-us/azure/active-directory/governance/access-reviews-overview)
+
+**Responsibility**: Customer
+
+### PA-8: Choose approval process for Microsoft support
+
+**Guidance**: In support scenarios where Microsoft needs to access customer data, Customer Lockbox provides a capability for you to explicitly review and approve or reject each customer data access request.
+
+- [Understand Customer Lockbox](https://docs.microsoft.com/en-us/azure/security/fundamentals/customer-lockbox-overview)
+
+**Responsibility**: Customer
